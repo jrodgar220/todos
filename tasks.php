@@ -2,7 +2,6 @@
 include 'db.php';
 include 'auth.php'; // Incluye la validación de sesión
 
-<?php
 header("Access-Control-Allow-Origin: *"); // Permite acceso desde cualquier origen
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
