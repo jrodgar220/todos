@@ -1,7 +1,8 @@
 FROM php:8.2-apache
 
-# Instalar extensiones PHP necesarias
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+# Instalar extensiones necesarias
+RUN apt-get update && apt-get install -y libpq-dev \
+    && docker-php-ext-install pdo pdo_pgsql pgsql
 
 # Copiar el código fuente de la app
 COPY . /var/www/html/
