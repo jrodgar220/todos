@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba API de Tareas</title>
+</head>
+<body>
+    <h2>Login</h2>
+    <input id="username" placeholder="Usuario">
+    <input id="password" type="password" placeholder="Contraseña">
+    <button onclick="login()">Ingresar</button>
+
+    <h2>Lista de Tareas</h2>
+    <button onclick="logout()">Cerrar Sesión</button>
+    <button onclick="fetchTasks()">Cargar Tareas</button>
+    <ul id="taskList"></ul>
+
+    <h2>Crear Nueva Tarea</h2>
+    <textarea id="newTask" placeholder="Escribe tu tarea..."></textarea>
+    <button onclick="addTask()">Guardar</button>
+
+    <script>
+        async function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            const response = await fetch("http://localhost/api/login.php", {
+                method: "POST",
+                credentials: 'include', // 🔥 IMPORTANTE: Permite el envío de cookies
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password })
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                localStorage.setItem("token", data.token);
+                alert("Login exitoso");
+            } else {
+                alert("Usuario o contraseña incorrectos");
+            }
+        }
+
+        async function fetchTasks() {
+            const token = localStorage.getItem("token");
+            const response = await fetch("http://localhost/api/tasks.php", {
+                headers: { "Authorization": `Bearer ${token}` }
+            });
+
+            const tasks = await response.json();
+            const taskList = document.getElementById("taskList");
+            taskList.innerHTML = "";
+
+            tasks.forEach(task => {
+                const li = document.createElement("li");
+                li.innerHTML = `
+                    ${task.completed ? `<s>${task.description}</s>` : task.description} 
+                    <button onclick="markAsDone(${task.id})">✔</button>
+                    <button onclick="deleteTask(${task.id})">🗑</button>
+                `;
+                taskList.appendChild(li);
+            });
+        }
+
+        async function addTask() {
+            const token = localStorage.getItem("token");
+            const description = document.getElementById("newTask").value;
+
+            await fetch("http://localhost/api/tasks.php", {
+                method: "POST",
+                credentials: 'include', // 🔥 IMPORTANTE: Permite el envío de cookies
+                headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+                body: JSON.stringify({ description })
+            });
+
+            alert("Tarea creada");
+            fetchTasks();
+        }
+
+        async function markAsDone(taskId) {
+            const token = localStorage.getItem("token");
+            await fetch("http://localhost/api/tasks.php", {
+                method: "PATCH",
+                headers: { "Content-Type": "application/x-www-form-urlencoded", "Authorization": `Bearer ${token}` },
+                body: new URLSearchParams({ id: taskId })
+            });
+
+            fetchTasks();
+        }
+
+        async function deleteTask(taskId) {
+            const token = localStorage.getItem("token");
+            await fetch("http://localhost/api/tasks.php", {
+                method: "DELETE",
+                headers: { "Content-Type": "application/x-www-form-urlencoded", "Authorization": `Bearer ${token}` },
+                body: new URLSearchParams({ id: taskId })
+            });
+
+            fetchTasks();
+        }
+
+        async function logout() {
+            const token = localStorage.getItem("token");
+            await fetch("http://localhost/api/logout.php", {
+                method: "POST",
+                headers: { "Authorization": `Bearer ${token}` }
+            });
+
+            localStorage.removeItem("token");
+            alert("Sesión cerrada");
+        }
+    </script>
+</body>
+</html>
