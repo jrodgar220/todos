@@ -21,11 +21,13 @@
     <button onclick="addTask()">Guardar</button>
 
     <script>
+        url="http://localhost/api/";
+        //url="https://todos-0ska.onrender.com/"
         async function login() {
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
 
-            const response = await fetch("https://todos-0ska.onrender.com/login.php", {
+            const response = await fetch(url+"login.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username, password })
@@ -42,7 +44,7 @@
 
         async function fetchTasks() {
             const token = localStorage.getItem("token");
-            const response = await fetch("https://todos-0ska.onrender.com/tasks.php", {
+            const response = await fetch(url+"/tasks.php", {
                 headers: { "Authorization": `Bearer ${token}` }
             });
 
@@ -65,9 +67,8 @@
             const token = localStorage.getItem("token");
             const description = document.getElementById("newTask").value;
 
-            await fetch("https://todos-0ska.onrender.com/tasks.php", {
+            await fetch(url+"tasks.php", {
                 method: "POST",
-                credentials: 'include', // 🔥 IMPORTANTE: Permite el envío de cookies
                 headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
                 body: JSON.stringify({ description })
             });
@@ -78,7 +79,7 @@
 
         async function markAsDone(taskId) {
             const token = localStorage.getItem("token");
-            await fetch("https://todos-0ska.onrender.com/tasks.php", {
+            await fetch(url+"tasks.php", {
                 method: "PATCH",
                 headers: { "Content-Type": "application/x-www-form-urlencoded", "Authorization": `Bearer ${token}` },
                 body: new URLSearchParams({ id: taskId })
@@ -89,7 +90,7 @@
 
         async function deleteTask(taskId) {
             const token = localStorage.getItem("token");
-            await fetch("https://todos-0ska.onrender.com/tasks.php", {
+            await fetch(url+"tasks.php", {
                 method: "DELETE",
                 headers: { "Content-Type": "application/x-www-form-urlencoded", "Authorization": `Bearer ${token}` },
                 body: new URLSearchParams({ id: taskId })
@@ -100,8 +101,8 @@
 
         async function logout() {
             const token = localStorage.getItem("token");
-            await fetch("https://todos-0ska.onrender.com/logout.php", {
-                method: "POST",
+            await fetch(url+"logout.php", {
+                method: "DELETE",
                 headers: { "Authorization": `Bearer ${token}` }
             });
 

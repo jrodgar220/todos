@@ -12,10 +12,6 @@ try {
 }*/
 
 
-// URL de conexión que te da Render
-header("Access-Control-Allow-Origin: *"); // Permite acceso desde cualquier origen
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 
 $url = "postgresql://todos_1yhh_user:946w8qnw9vVLrvsIgpPZvdWmqIcIV5rQ@dpg-cvlcp7jipnbc73di699g-a.frankfurt-postgres.render.com/todos_1yhh";

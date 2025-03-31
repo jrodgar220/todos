@@ -1,8 +1,14 @@
 <?php
-header('Access-Control-Allow-Origin: *'); // Permite solicitudes de cualquier origen
-header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE'); // Métodos permitidos
-header('Access-Control-Allow-Headers: Content-Type'); // Cabeceras permitidas
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Request-Method");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 header("Content-Type: application/json");
+
+// Manejo de preflight para OPTIONS
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
 
 // Si es una solicitud preflight (OPTIONS), respondemos correctamente
 /*Una solicitud preflight es un tipo de solicitud HTTP que se realiza automáticamente 
@@ -31,6 +37,4 @@ $stmt = $pdo->prepare("UPDATE users SET token = NULL WHERE token = ?");
 $stmt->execute([$token]);
 
 echo json_encode(["success" => true, "message" => "Sesión cerrada"]);
-?>
-
 ?>
