@@ -1,10 +1,10 @@
 <?php
 include 'db.php'; // Conexión a la base de datos
-
-header('Access-Control-Allow-Origin: *');
-header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
+<?php
+header("Access-Control-Allow-Origin: *"); // Permite acceso desde cualquier origen
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-header("Allow: GET, POST, OPTIONS, PUT, DELETE");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+
 $method = $_SERVER['REQUEST_METHOD'];
 if($method == "OPTIONS") {
     die();

@@ -2,10 +2,10 @@
 include 'db.php';
 include 'auth.php'; // Incluye la validación de sesión
 
-header("Access-Control-Allow-Credentials: true"); // Si usas cookies/sesiones
-header("Access-Control-Allow-Origin: *"); // Permitir solicitudes desde cualquier origen (cambiar en producción)
-header("Access-Control-Allow-Methods: GET, POST, PATCH, DELETE, OPTIONS"); // Métodos permitidos
-header("Access-Control-Allow-Headers: Authorization, Content-Type"); // Cabeceras permitidas
+<?php
+header("Access-Control-Allow-Origin: *"); // Permite acceso desde cualquier origen
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Content-Type: application/json");
 
 

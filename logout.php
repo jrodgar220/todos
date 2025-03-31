@@ -18,6 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 //session_destroy(); // Elimina todos los datos de sesión
 include 'db.php';
 
+header("Access-Control-Allow-Origin: *"); // Permite acceso desde cualquier origen
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+
 $headers = getallheaders();
 if (!isset($headers['Authorization'])) {
     http_response_code(401);

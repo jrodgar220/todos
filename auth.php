@@ -1,6 +1,8 @@
 <?php
-session_start();
 require 'db.php'; // Asegura que la conexión a la BD esté disponible
+header("Access-Control-Allow-Origin: *"); // Permite acceso desde cualquier origen
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 function verificarSesion() {
     global $pdo; // Usar la conexión definida en db.php
