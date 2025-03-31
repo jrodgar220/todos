@@ -1,13 +1,7 @@
 <?php
 include 'db.php';
 include 'auth.php'; // Incluye la validación de sesión
-
-header("Access-Control-Allow-Credentials: true"); // Si usas cookies/sesiones
-header("Access-Control-Allow-Origin: *"); // Permitir solicitudes desde cualquier origen (cambiar en producción)
-header("Access-Control-Allow-Methods: GET, POST, PATCH, DELETE, OPTIONS"); // Métodos permitidos
-header("Access-Control-Allow-Headers: Authorization, Content-Type"); // Cabeceras permitidas
-header("Content-Type: application/json");
-
+include 'headers.php';
 
 // Manejo de preflight para OPTIONS
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {

@@ -1,16 +1,6 @@
 <?php
 include 'db.php'; // Conexión a la base de datos
-
- 
- header('Access-Control-Allow-Origin: *');
- header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
- header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
- header("Allow: GET, POST, OPTIONS, PUT, DELETE");
- $method = $_SERVER['REQUEST_METHOD'];
- if($method == "OPTIONS") {
-     die();
- }
-
+include 'headers.php';
 $data = json_decode(file_get_contents("php://input"), true);
 $username = $data['username'];
 $password = $data['password'];

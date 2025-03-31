@@ -1,5 +1,5 @@
 <?php
- require 'db.php'; // Asegura que la conexión a la BD esté disponible
+ include 'db.php'; // Asegura que la conexión a la BD esté disponible
  
  function verificarSesion() {
      global $pdo; // Usar la conexión definida en db.php
