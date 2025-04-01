@@ -30,8 +30,8 @@ if ($method === 'POST') {
     // Crear nueva tarea
     $data = json_decode(file_get_contents("php://input"), true);
     if (isset($data['description'])) {
-        $stmt = $pdo->prepare("INSERT INTO tasks (user_id, description, completed) VALUES (?, ?, 0)");
-        $stmt->execute([$user_id, $data['description']]);
+        $stmt = $pdo->prepare("INSERT INTO tasks (user_id, description, completed) VALUES (?, ?, FALSE)");
+        $stmt->execute([$user_id, $data['description']]);       
         echo json_encode(["success" => true]);
     }
 }
@@ -40,8 +40,7 @@ if ($method === 'PATCH') {
     // Marcar tarea como completada
     parse_str(file_get_contents("php://input"), $data);
     if (isset($data['id'])) {
-        $stmt = $pdo->prepare("UPDATE tasks SET completed = 1 WHERE id = ? AND user_id = ?");
-        $stmt->execute([$data['id'], $user_id]);
+        $stmt = $pdo->prepare("UPDATE tasks SET completed = TRUE WHERE id = ? AND user_id = ?");        $stmt->execute([$data['id'], $user_id]);
         echo json_encode(["success" => true]);
     }
 }
