@@ -12,6 +12,7 @@ try {
 }*/
 
 
+// URL de conexión que te da Render
 
 
 $url = "postgresql://todos_1yhh_user:946w8qnw9vVLrvsIgpPZvdWmqIcIV5rQ@dpg-cvlcp7jipnbc73di699g-a.frankfurt-postgres.render.com/todos_1yhh";
@@ -37,6 +38,3 @@ try {
     die("❌ Error de conexión: " . $e->getMessage());
 }
 ?>
-
-
-
