@@ -1,12 +1,10 @@
 <?php
 require_once '../dbconection/db.php';
-require_once '../utils/auth.php';
 require_once '../repository/TaskRepository.php';
 
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Credentials: true");
-header("Access-Control-Allow-Headers: Authorization, Content-Type");
-header("Access-Control-Allow-Methods: GET, POST, PATCH, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS");
 header("Content-Type: application/json");
 
 // Responder preflight (CORS)
@@ -14,8 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
-
-$user_id = verificarSesion();
+$user_id=5;
 $repository = new TaskRepository($pdo);
 $method = $_SERVER['REQUEST_METHOD'];
 

@@ -30,13 +30,22 @@ try {
     die("❌ Error al crear tablas: " . $e->getMessage());
 }
 
-
+//USUARIO ADMIN POR DEFECTO
 $username = 'admin';
-$password = 'admin'; // Contraseña en texto plano
+$password = 'admin'; 
 $password_hash = password_hash($password, PASSWORD_BCRYPT); // Encriptar contraseña
 
 $stmt = $pdo->prepare("INSERT INTO users (username, password_hash) VALUES (?, ?)");
 $stmt->execute([$username, $password_hash]);
 
-echo "Usuario creado correctamente.";
+echo "Usuario admin creado correctamente.";
+
+$username = 'user';
+$password = 'user'; 
+$password_hash = password_hash($password, PASSWORD_BCRYPT); // Encriptar contraseña
+
+$stmt = $pdo->prepare("INSERT INTO users (username, password_hash) VALUES (?, ?)");
+$stmt->execute([$username, $password_hash]);
+echo "Usuario user creado correctamente.";
+
 ?>
