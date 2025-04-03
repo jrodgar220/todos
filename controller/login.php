@@ -1,5 +1,5 @@
 <?php
-include 'db.php'; // Conexión a la base de datos
+include '../dbconection/db.php'; // Conexión a la base de datos
 
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");

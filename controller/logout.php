@@ -15,9 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);
     exit;
 }
-//session_start();
-//session_destroy(); // Elimina todos los datos de sesión
-include 'db.php';
+
+include '../dbconection/db.php'; // Conexión a la base de datos
 
 $headers = getallheaders();
 if (!isset($headers['Authorization'])) {

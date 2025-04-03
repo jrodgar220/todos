@@ -1,5 +1,5 @@
 <?php
-include 'db.php'; // Conexión a la BD
+require_once '../dbconection/db.php';
 
 try {
     // Crear tabla de usuarios
